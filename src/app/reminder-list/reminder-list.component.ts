@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ReminderComponent } from '../reminder/reminder.component';
+import { Reminder } from '../reminder';
+import { NgFor } from '@angular/common';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'rmd-reminder-list',
   standalone: true,
-  imports: [],
+  imports: [ReminderComponent, NgFor],
   templateUrl: './reminder-list.component.html',
-  styleUrl: './reminder-list.component.css'
+  styleUrl: './reminder-list.component.css',
+  //providers: [BackendService] // Add the BackendService to the providers array
 })
 export class ReminderListComponent {
 
+  service = inject(BackendService)
+
+  reminders: Reminder[] = this.service.getRemindersArr();
 }
